@@ -3,9 +3,11 @@ FROM node:16-alpine AS backend
 
 WORKDIR /backend
 
-COPY . .
+COPY package.json .
 
 RUN npm install
+
+COPY . .
 
 EXPOSE 3001
 

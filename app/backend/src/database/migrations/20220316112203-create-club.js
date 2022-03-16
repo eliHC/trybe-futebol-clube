@@ -10,6 +10,7 @@ module.exports = {
         primaryKey: true,
       },
       club_name: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
      });
