@@ -10,15 +10,7 @@ export default class User extends Model {
 }
 
 User.init({
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
   username: DataTypes.STRING,
-  role: DataTypes.STRING,
-  email: DataTypes.STRING,
-  password: DataTypes.STRING
 }, {
   underscored: true,
   sequelize: db,

@@ -27,6 +27,10 @@ Club.init({
 Club.hasMany(Match, { foreignKey: 'id', as: 'home_team' });
 Club.hasMany(Match, { foreignKey: 'id', as: 'away_team' });
 
+Match.belongsTo(Club, { foreignKey: 'id', as: 'home_team' });
+Match.belongsTo(Club, { foreignKey: 'id', as: 'away_team' });
+
+
 // OtherModel.belongsTo(Example, { foreignKey: 'campoA', as: 'campoEstrangeiroA' });
 // OtherModel.belongsTo(Example, { foreignKey: 'campoB', as: 'campoEstrangeiroB' });
 
