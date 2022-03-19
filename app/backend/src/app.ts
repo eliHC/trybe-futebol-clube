@@ -1,4 +1,7 @@
 import * as express from 'express';
+import * as cors from 'cors';
+
+import UserController from './database/controllers/user';
 
 class App {
   public app: express.Express;
@@ -20,10 +23,12 @@ class App {
     };
 
     this.app.use(accessControl);
-    // ...
+    this.app.use(express.json());
+    this.app.use(cors());
+    //
+    this.app.post('/login', UserController.login);
   }
 
-  // ...
   public start(PORT: string | number):void {
     this.app.listen(PORT, () => {
       console.log(`--------------${PORT}--------------`);
