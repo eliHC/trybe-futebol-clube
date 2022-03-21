@@ -16,6 +16,7 @@ export default class LoginService {
   static async login({ email, password }: ILogin): Promise<IResMaker> {
     const user = await UserRepository.getByEmail(email) as IUser;
     const isValidPassword = bcryptJS.compareSync(password, user.password);
+
     if (!user || !isValidPassword) {
       return responseMaker(false, 401, 'Incorrect email or password');
     }
