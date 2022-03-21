@@ -15,6 +15,9 @@ export default class User extends Model {
 
 User.init({
   username: DataTypes.STRING,
+  role: DataTypes.STRING,
+  email: DataTypes.STRING,
+  password: DataTypes.STRING,
 }, {
   underscored: true,
   sequelize: db,

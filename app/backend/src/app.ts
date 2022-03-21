@@ -1,7 +1,9 @@
 import * as express from 'express';
 import * as cors from 'cors';
 
-import UserController from './database/controllers/user';
+import UserController from './database/controllers/UserController';
+
+import validateInputs from './database/middlewares/validateInputs';
 
 class App {
   public app: express.Express;
@@ -26,13 +28,11 @@ class App {
     this.app.use(express.json());
     this.app.use(cors());
     //
-    this.app.post('/login', UserController.login);
+    this.app.post('/login', validateInputs, UserController.login);
   }
 
   public start(PORT: string | number):void {
-    this.app.listen(PORT, () => {
-      console.log(`--------------${PORT}--------------`);
-    });
+    this.app.listen(PORT, () => console.log(`--------------${PORT}--------------`));
   }
 }
 
