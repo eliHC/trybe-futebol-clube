@@ -1,4 +1,3 @@
-# FROM node:16-alpine
 FROM node:16-alpine AS frontend
 
 WORKDIR /frontend
@@ -10,5 +9,3 @@ RUN npm install
 EXPOSE 3000
 
 CMD [ "npm", "start" ]
-
-#  ...

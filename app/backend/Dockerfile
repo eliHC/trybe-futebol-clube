@@ -1,16 +1,11 @@
-# FROM node:16-alpine
 FROM node:16-alpine AS backend
 
 WORKDIR /backend
 
-COPY package.json .
+COPY . .
 
 RUN npm install
-
-COPY . .
 
 EXPOSE 3001
 
 CMD [ "npm", "start" ]
-
-#  ...
