@@ -7,12 +7,14 @@ import UserRepository from '../repositories/UserRepository';
 import ILogin from '../interfaces/ILogin';
 import ILoginOut from '../interfaces/ILoginOut';
 import IResMaker from '../interfaces/IResMaker';
+import IUser from '../interfaces/IUser';
+import IUserWithoutPass from '../interfaces/IUserWithoutPass';
 
 import responseMaker from '../utils/index';
 
 export default class LoginService {
   static async login({ email, password }: ILogin): Promise<IResMaker> {
-    const user = await UserRepository.getByEmail(email);
+    const user = await UserRepository.getByEmail(email) as IUser;
     const isValidPassword = bcryptJS.compareSync(password, user.password);
     if (!user || !isValidPassword) {
       return responseMaker(false, 401, 'Incorrect email or password');
@@ -27,7 +29,7 @@ export default class LoginService {
         username: user.username,
         role: user.role,
         email: user.email,
-      },
+      } as IUserWithoutPass,
       token,
     } as ILoginOut;
 

@@ -22,7 +22,7 @@ export default class UserRepository {
     return result as IUser;
   }
 
-  static async getByEmail(email: IUser['email']): Promise<IUser> {
+  static async getByEmail(email: IUser['email']): Promise<unknown> {
     const result = await User.findOne({ where: { email } });
 
     return result as IUser;
