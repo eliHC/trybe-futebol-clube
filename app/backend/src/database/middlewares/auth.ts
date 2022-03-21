@@ -13,7 +13,7 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
 
   try {
     const user = jwt.verify(authorization, SECRET);
-    
+
     if (user) {
       next();
     }

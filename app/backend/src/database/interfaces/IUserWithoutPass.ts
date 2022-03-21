@@ -1,5 +1,5 @@
-import IUser from "./IUser";
+import IUser from './IUser';
 
-type IUserWithoutPass = Exclude<IUser, 'password'>
+type IUserWithoutPass = Exclude<IUser, 'password'>;
 
 export default IUserWithoutPass;

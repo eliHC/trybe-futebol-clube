@@ -26,17 +26,19 @@ import responseMaker from '../utils';
 //   }),
 // }).strict();
 
+const message = 'All fields must be filled';
+
 const schemaLogin = Joi.object({
   email: Joi.string().email().required().messages({
-    'any.required': 'All fields must be filled',
+    'any.required': message,
     'string.email': 'Incorrect email or password',
     'string.base': 'Incorrect email or password',
-    "string.empty": 'All fields must be filled',
+    'string.empty': message,
   }),
   password: Joi.string().required().min(7).messages({
-    'any.required': 'All fields must be filled',
+    'any.required': message,
     'string.min': 'Password must be longer than 6 characters',
-    "string.empty": 'All fields must be filled',
+    'string.empty': message,
   }),
 });
 

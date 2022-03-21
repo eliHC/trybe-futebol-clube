@@ -1,4 +1,4 @@
-import IUserWithoutPass from "./IUserWithoutPass";
+import IUserWithoutPass from './IUserWithoutPass';
 
 export default interface ILoginOut {
   user: IUserWithoutPass;

@@ -8,8 +8,8 @@ export default class UserController {
     const { email, password } = req.body;
     const { success, status, message, data } = await LoginService.login({ email, password });
 
-    if(!success) {
-      return res.status(status).json({message: message}) as unknown as ILoginOut;
+    if (!success) {
+      return res.status(status).json({ message }) as unknown as ILoginOut;
     }
 
     return res.status(status).json(data) as unknown as ILoginOut;
