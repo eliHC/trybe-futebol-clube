@@ -22,10 +22,10 @@ export default class UserRepository {
     return result as IUser;
   }
 
-  static async getByEmail(email: IUser['email']): Promise<unknown> {
+  static async getByEmail(email: IUser['email']) {
     const result = await User.findOne({ where: { email } });
 
-    return result as IUser;
+    return result;
   }
 
   static async remove(id: IUser['id']): Promise<void> {

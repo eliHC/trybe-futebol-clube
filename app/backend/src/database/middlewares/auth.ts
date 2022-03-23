@@ -1,26 +1,28 @@
 import { Request, Response, NextFunction } from 'express';
+
 import * as fs from 'fs';
 import * as jwt from 'jsonwebtoken';
 
-const SECRET = fs.readFileSync('../../../jwt.evaluation.key', 'utf-8');
+import IUser from '../interfaces/IUser';
 
-export const authenticate = (req: Request, res: Response, next: NextFunction) => {
+const SECRET = fs.readFileSync('/backend/jwt.evaluation.key', 'utf-8').toString();
+
+export default async (req: Request, res: Response, next: NextFunction) => {
   const { authorization } = req.headers;
-
   if (!authorization) {
-    return res.status(401).json({ error: 'Token not found' });
+    return res.status(401).json({ message: 'Token not found' });
   }
 
   try {
-    const user = jwt.verify(authorization, SECRET);
+    const user = jwt.verify(authorization, SECRET) as IUser;
 
     if (user) {
+      res.locals.user = user;
+      console.log('user auth<<<', res.locals.user);
+
       next();
     }
   } catch (e) {
-    return res.status(401).json({ error: 'Invalid token' });
+    return res.status(401).json({ message: 'Invalid token' });
   }
 };
-
-// --------------------------<<
-export const shutUpLint = '!';

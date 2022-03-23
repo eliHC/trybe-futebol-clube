@@ -4,6 +4,7 @@ import * as cors from 'cors';
 import UserController from './database/controllers/UserController';
 
 import validateInputs from './database/middlewares/validateInputs';
+import authenticate from './database/middlewares/auth';
 
 class App {
   public app: express.Express;
@@ -28,7 +29,9 @@ class App {
     this.app.use(express.json());
     this.app.use(cors());
     //
-    this.app.post('/login', validateInputs, UserController.login);
+    this.app.use(validateInputs);
+    this.app.post('/login', UserController.login);
+    this.app.get('/login/validate', authenticate, UserController.getRole);
   }
 
   public start(PORT: string | number):void {

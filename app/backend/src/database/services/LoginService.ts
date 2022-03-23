@@ -22,7 +22,7 @@ export default class LoginService {
     }
 
     const SECRET = fs.readFileSync('/backend/jwt.evaluation.key').toString();
-    const token = jwt.sign(user.id.toString(), SECRET);
+    const token = jwt.sign({ user }, SECRET);
 
     const obj = {
       user: {
