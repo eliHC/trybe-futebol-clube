@@ -42,10 +42,7 @@ describe('test app', () => {
     
     
     it('When the login occurs correctly:', async () => {
-      const response = await chai
-        .request(app)
-        .post('/login')
-        .send(inputPayload);
+      const response = await chai.request(app).post('/login').send(inputPayload);
 
       expect(response.status).to.be.equal(200);
     });
