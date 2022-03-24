@@ -70,7 +70,7 @@ const schemaByPath = (path: string) => {
 
 export default (req: Request, res: Response, next: NextFunction) => {
   if (req.method === 'GET') {
-    next();
+    return next();
   }
 
   const { path } = req;
@@ -79,7 +79,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
   const schema = schemaByPath(path);
   const { error } = schema.validate(payload);
 
-  console.log('<<<<validateImputs log:', error);
+  console.log('<<<< validateImputs log:', error);
 
   if (error) {
     const response = responseMaker(false, 401, error.message);

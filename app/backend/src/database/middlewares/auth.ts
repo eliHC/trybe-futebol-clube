@@ -5,7 +5,8 @@ import * as jwt from 'jsonwebtoken';
 
 import IUser from '../interfaces/IUser';
 
-const secretpath = '/home/eli/trybe/sd-014-b-trybe-futebol-clube/app/backend/jwt.evaluation.key';
+const secretpath = '/home/eli/trybe/sd-014-b-trybe-futebol-clube/app/backend/jwt.evaluation.key'
+|| './backend/jwt.evaluation.key';
 
 // secretpath
 
