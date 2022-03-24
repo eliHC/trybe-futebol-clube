@@ -13,4 +13,3 @@ export default class ClubController {
     return res.status(status).json(data);
   }
 }
-

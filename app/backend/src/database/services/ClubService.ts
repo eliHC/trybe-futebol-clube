@@ -1,6 +1,3 @@
-import * as jwt from 'jsonwebtoken';
-import * as fs from 'fs';
-
 import ClubRepository from '../repositories/ClubRepository';
 
 // import ILogin from '../interfaces/ILogin';
@@ -10,7 +7,6 @@ import IResMaker from '../interfaces/IResMaker';
 // import IUserWithoutPass from '../interfaces/IUserWithoutPass';
 
 import responseMaker from '../utils/index';
-
 
 export default class LoginService {
   static async getAll(): Promise<IResMaker> {
