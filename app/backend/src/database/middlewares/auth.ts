@@ -5,12 +5,7 @@ import * as jwt from 'jsonwebtoken';
 
 import IUser from '../interfaces/IUser';
 
-const secretpath = '/home/eli/trybe/sd-014-b-trybe-futebol-clube/app/backend/jwt.evaluation.key'
-|| './backend/jwt.evaluation.key';
-
-// secretpath
-
-const SECRET = fs.readFileSync(secretpath, 'utf-8');
+const SECRET = fs.readFileSync('jwt.evaluation.key', 'utf-8');
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   const { authorization } = req.headers;
