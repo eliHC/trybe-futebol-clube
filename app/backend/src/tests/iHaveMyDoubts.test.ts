@@ -28,28 +28,32 @@ describe('on /login:', () => {
         role: 'admin',
         email: 'admin@admin.com'
       },
-      token: 'eyJhbGciOiJIUzI1NiJ9.MQ.dQmeXYvGEvAIr4s20zDCeYcI0HxMZhp26RK-4zvGrhQ'
+      token: 'dvsaadsv'
     };
 
-    beforeEach(() => {
+    before(() => {
       sinon.stub(User, 'findOne').resolves(outputPayload.user as User);
       sinon.stub(bcryptJS, 'compareSync').returns(true);
       sinon.stub(validateInputs);
       sinon.stub(authentication);
     });
-
-    it('When the login occurs correctly:', async () => {
-      const response = await chai.request(app).post('/login').send(inputPayload);
-
-      expect(response.status).to.be.equal(200);
-    });
-
-    afterEach(() => {
+    after(() => {
       sinon.restore();
     });
 
-    it('When the authentication works properly', () => {
-      expect(validateInputs).to.have.been.called();
+    it('Returns the correct data', async () => {
+      const response = await chai.request(app).post('/login').send(inputPayload);
+
+      expect(response.status).to.be.equal(200);
+      expect(response.body).to.have.property('user');
+      expect(response.body).to.have.property('token');
     });
+  });
+  describe('With GET method, ', () => {
+    it('Does not break the app', async () => {
+      const res = await chai.request(app).get('/login');
+
+      expect(res.status).to.be.equal(404);
+    })
   });
 });
