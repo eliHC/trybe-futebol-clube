@@ -7,15 +7,15 @@ export default class Club extends Model {
 }
 
 Club.init({
-  club_name: DataTypes.STRING,
+  clubName: DataTypes.STRING,
 }, {
   underscored: true,
   sequelize: db,
   timestamps: false,
 });
 
-Club.hasMany(Match, { foreignKey: 'id', as: 'home_team' });
-Club.hasMany(Match, { foreignKey: 'id', as: 'away_team' });
+Club.hasMany(Match, { foreignKey: 'homeTeam', as: 'homeClub' });
+Club.hasMany(Match, { foreignKey: 'awayTeam', as: 'awayClub' });
 
-Match.belongsTo(Club, { foreignKey: 'id', as: 'home_team' });
-Match.belongsTo(Club, { foreignKey: 'id', as: 'away_team' });
+Match.belongsTo(Club, { foreignKey: 'homeTeam', as: 'homeClub' });
+Match.belongsTo(Club, { foreignKey: 'awayTeam', as: 'awayClub' });

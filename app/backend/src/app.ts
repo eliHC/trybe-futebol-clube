@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as cors from 'cors';
 
 import UserController from './database/controllers/UserController';
+import ClubController from './database/controllers/ClubController';
 
 import validateInputs from './database/middlewares/validateInputs';
 import authenticate from './database/middlewares/auth';
@@ -32,6 +33,7 @@ class App {
     this.app.use(validateInputs);
     this.app.post('/login', UserController.login);
     this.app.get('/login/validate', authenticate, UserController.getRole);
+    this.app.get('/clubs', ClubController.getAll);
   }
 
   public start(PORT: string | number):void {

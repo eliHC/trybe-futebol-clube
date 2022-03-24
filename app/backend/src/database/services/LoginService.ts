@@ -12,8 +12,6 @@ import IUserWithoutPass from '../interfaces/IUserWithoutPass';
 
 import responseMaker from '../utils/index';
 
-const s = '/home/eli/trybe/sd-014-b-trybe-futebol-clube/app/backend/jwt.evaluation.key';
-
 export default class LoginService {
   static async login({ email, password }: ILogin): Promise<IResMaker> {
     const user = await UserRepository.getByEmail(email) as IUser;
@@ -23,7 +21,7 @@ export default class LoginService {
       return responseMaker(false, 401, 'Incorrect email or password');
     }
 
-    const SECRET = fs.readFileSync(s);
+    const SECRET = fs.readFileSync('jwt.evaluation.key');
     const token = jwt.sign({ user }, SECRET);
 
     const obj = {
