@@ -9,13 +9,10 @@ import authenticate from './database/middlewares/auth';
 
 class App {
   public app: express.Express;
-  // ...
 
   constructor() {
-    // ...
     this.app = express();
     this.config();
-    // ...
   }
 
   private config():void {
@@ -25,15 +22,16 @@ class App {
       res.header('Access-Control-Allow-Headers', '*');
       next();
     };
-
     this.app.use(accessControl);
     this.app.use(express.json());
     this.app.use(cors());
     //
     this.app.use(validateInputs);
-    this.app.post('/login', UserController.login);
-    this.app.get('/login/validate', authenticate, UserController.getRole);
-    this.app.get('/clubs', ClubController.getAll);
+    this.app.route('/login').post(UserController.login);
+    this.app.route('/login/validate').get(authenticate, UserController.getRole);
+    //
+    this.app.route('/clubs').get(ClubController.getAll);
+    this.app.route('/clubs/:id').get(ClubController.getById);
   }
 
   public start(PORT: string | number):void {

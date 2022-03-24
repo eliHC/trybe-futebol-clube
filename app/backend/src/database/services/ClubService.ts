@@ -20,4 +20,16 @@ export default class LoginService {
 
     return response as IResMaker;
   }
+
+  static async getById(id: string): Promise<IResMaker> {
+    const club = await ClubRepository.getById(id);
+
+    if (!club) {
+      return responseMaker(false, 401, 'no club, dude!');
+    }
+
+    const response = responseMaker(true, 200, 'OK', club);
+
+    return response as IResMaker;
+  }
 }

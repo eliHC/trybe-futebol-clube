@@ -13,11 +13,11 @@ export default class ClubRepository {
     return clubs;
   }
 
-  // static async getById(id: IUser['id']): Promise<IUser> {
-  //   const result = await User.findByPk(id);
+  static async getById(id: string) {
+    const result = await Club.findByPk(id);
 
-  //   return result as IUser;
-  // }
+    return result;
+  }
 
   // static async getByEmail(email: IUser['email']) {
   //   const result = await User.findOne({ where: { email } });
