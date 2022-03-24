@@ -1,6 +1,6 @@
 import User from '../models/User';
 
-import ILogin from '../interfaces/ILogin';
+// import ILogin from '../interfaces/ILogin';
 import IUser from '../interfaces/IUser';
 
 export default class UserRepository {
