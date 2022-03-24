@@ -5,7 +5,11 @@ import * as jwt from 'jsonwebtoken';
 
 import IUser from '../interfaces/IUser';
 
-const SECRET = fs.readFileSync('/backend/jwt.evaluation.key', 'utf-8').toString();
+const secretpath = '/home/eli/trybe/sd-014-b-trybe-futebol-clube/app/backend/jwt.evaluation.key';
+
+// secretpath
+
+const SECRET = fs.readFileSync(secretpath, 'utf-8');
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   const { authorization } = req.headers;
@@ -18,11 +22,10 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
     if (user) {
       res.locals.user = user;
-      console.log('user auth<<<', res.locals.user);
-
-      next();
     }
   } catch (e) {
     return res.status(401).json({ message: 'Invalid token' });
   }
+
+  next();
 };

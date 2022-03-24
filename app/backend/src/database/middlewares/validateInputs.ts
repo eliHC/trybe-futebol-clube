@@ -64,20 +64,22 @@ const schemaByPath = (path: string) => {
     // case '/products':
     //   return schemaProducts;
     default:
-      return Joi.object({});
+      return Joi.object().empty();
   }
 };
 
 export default (req: Request, res: Response, next: NextFunction) => {
+  if (req.method === 'GET') {
+    next();
+  }
+
   const { path } = req;
   const payload = req.body;
 
-  if (req.method === 'GET') {
-    return next();
-  }
-
-  const schema: Joi.ObjectSchema = schemaByPath(path);
+  const schema = schemaByPath(path);
   const { error } = schema.validate(payload);
+
+  console.log('<<<<validateImputs log:', error);
 
   if (error) {
     const response = responseMaker(false, 401, error.message);
