@@ -3,7 +3,7 @@ import User from '../models/User';
 // import ILogin from '../interfaces/ILogin';
 import IUser from '../interfaces/IUser';
 
-export default class UserRepository {
+export default class UserRepository { //  refac <<<
   // static async save(loginData: ILogin): Promise<IUser> {
   //   const newUser = await User.create({ ...loginData });
 

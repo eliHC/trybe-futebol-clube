@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import ClubService from '../services/ClubService';
 
 export default class ClubController {
-  static async getAll(req: Request, res: Response) {
+  static async getAllClubs(req: Request, res: Response) {
     const { success, status, message, data } = await ClubService.getAll();
 
     if (!success) {
@@ -13,7 +13,7 @@ export default class ClubController {
     return res.status(status).json(data);
   }
 
-  static async getById(req: Request, res: Response) {
+  static async getClubById(req: Request, res: Response) {
     const { id } = req.params;
     const { success, status, message, data } = await ClubService.getById(id);
 

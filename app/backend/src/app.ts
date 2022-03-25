@@ -3,6 +3,7 @@ import * as cors from 'cors';
 
 import UserController from './database/controllers/UserController';
 import ClubController from './database/controllers/ClubController';
+import MatchController from './database/controllers/MatchController';
 
 import validateInputs from './database/middlewares/validateInputs';
 import authenticate from './database/middlewares/auth';
@@ -27,11 +28,14 @@ class App {
     this.app.use(cors());
     //
     this.app.use(validateInputs);
+    //
     this.app.route('/login').post(UserController.login);
     this.app.route('/login/validate').get(authenticate, UserController.getRole);
     //
-    this.app.route('/clubs').get(ClubController.getAll);
-    this.app.route('/clubs/:id').get(ClubController.getById);
+    this.app.route('/clubs').get(ClubController.getAllClubs);
+    this.app.route('/clubs/:id').get(ClubController.getClubById);
+    //
+    this.app.route('/matchs').get(MatchController.getAllMatches);
   }
 
   public start(PORT: string | number):void {

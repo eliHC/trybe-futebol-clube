@@ -1,11 +1,6 @@
 import ClubRepository from '../repositories/ClubRepository';
 
-// import ILogin from '../interfaces/ILogin';
-// import ILoginOut from '../interfaces/ILoginOut';
 import IResMaker from '../interfaces/IResMaker';
-// import IUser from '../interfaces/IUser';
-// import IUserWithoutPass from '../interfaces/IUserWithoutPass';
-
 import responseMaker from '../utils/index';
 
 export default class LoginService {

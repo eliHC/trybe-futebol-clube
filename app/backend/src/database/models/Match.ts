@@ -1,12 +1,12 @@
 import { DataTypes, Model } from 'sequelize';
 import db from '.';
 
-export default class Match extends Model {
+export default class Matchs extends Model {
   homeTeam: number;
 }
 
-Match.init({
-  home_team: DataTypes.INTEGER,
+Matchs.init({
+  homeTeam: DataTypes.INTEGER,
 }, {
   underscored: true,
   sequelize: db,
