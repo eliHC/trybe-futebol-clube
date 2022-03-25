@@ -13,14 +13,14 @@ export default class MatchController {
     return res.status(status).json(data);
   }
 
-  static async getMatchById(req: Request, res: Response) {
-    const { id } = req.params;
-    const { success, status, message, data } = await MatchService.getById(id);
+  // static async getMatchById(req: Request, res: Response) {
+  //   const { id } = req.params;
+  //   const { success, status, message, data } = await MatchService.getById(id);
 
-    if (!success) {
-      return res.status(status).json({ message });
-    }
+  //   if (!success) {
+  //     return res.status(status).json({ message });
+  //   }
 
-    return res.status(status).json(data);
-  }
+  //   return res.status(status).json(data);
+  // }
 }

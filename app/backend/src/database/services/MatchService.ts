@@ -16,15 +16,15 @@ export default class MatchService {
     return response as IResMaker;
   }
 
-  static async getById(id: string): Promise<IResMaker> {
-    const match = await MatchRepository.getById(id);
+  // static async getById(id: string): Promise<IResMaker> {
+  //   const match = await MatchRepository.getById(id);
 
-    if (!match) {
-      return responseMaker(false, 401, 'no match, dude!');
-    }
+  //   if (!match) {
+  //     return responseMaker(false, 401, 'no match, dude!');
+  //   }
 
-    const response = responseMaker(true, 200, 'OK', match);
+  //   const response = responseMaker(true, 200, 'OK', match);
 
-    return response as IResMaker;
-  }
+  //   return response as IResMaker;
+  // }
 }

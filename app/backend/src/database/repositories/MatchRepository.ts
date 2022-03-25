@@ -13,9 +13,9 @@ export default class MatchRepository {
     return matchs;
   }
 
-  static async getById(id: string) {
-    const result = await Match.findByPk(id);
+  // static async getById(id: string) {
+  //   const result = await Match.findByPk(id);
 
-    return result;
-  }
+  //   return result;
+  // }
 }
