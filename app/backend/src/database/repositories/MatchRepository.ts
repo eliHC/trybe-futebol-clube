@@ -13,12 +13,6 @@ export default class MatchRepository {
     return matches;
   }
 
-  static async getOne(id: number) {
-    const match = await Club.findOne({ where: { id } });
-
-    return match;
-  }
-
   static async getByProgress(inProgress: boolean) {
     const matchesByProgress = await Match.findAll({
       where: { inProgress },
@@ -33,6 +27,18 @@ export default class MatchRepository {
 
   static async create(matchToBeSaved: object) {
     const match = await Match.create(matchToBeSaved);
+
+    return match;
+  }
+
+  static async update(id: number, homeTeamGoals: string, awayTeamGoals: string) {
+    const match = await Match.update({ homeTeamGoals, awayTeamGoals }, { where: { id: id } });
+
+    return match;
+  }
+
+  static async endmatch(id: number) {
+    const match = await Match.update({ inProgress: false }, { where: { id: id } });
 
     return match;
   }

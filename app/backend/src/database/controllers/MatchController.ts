@@ -38,4 +38,29 @@ export default class MatchController {
 
     return res.status(status).json(data);
   }
+
+  static async updateMatch(req: Request, res: Response) {
+    const { id } = req.params;
+    const matchToBeUpdated = req.body;
+
+    const { success, status, message, data } = await MatchService.update({ id, matchToBeUpdated });
+
+    if (!success) {
+      return res.status(status).json({ message });
+    }
+
+    return res.status(status).json(data);
+  }
+
+  static async endMatch(req: Request, res: Response) {
+    const id = Number(req.params.id);
+
+    const { success, status, message, data } = await MatchService.endMatch(id);
+
+    if (!success) {
+      return res.status(status).json({ message });
+    }
+
+    return res.status(status).json(data);
+  }
 }

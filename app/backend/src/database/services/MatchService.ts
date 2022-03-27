@@ -49,4 +49,36 @@ export default class MatchService {
       return responseMaker(false, 500, 'Internal server error');
     }
   }
+
+  static async update({ id, matchToBeUpdated }: any): Promise<IResMaker> { // TODO: remove any <<
+    try {
+      const { homeTeamGoals, awayTeamGoals } = matchToBeUpdated;
+
+      const updatedMatch = await MatchRepository.update(id, homeTeamGoals, awayTeamGoals);
+      if (!updatedMatch) {
+        return responseMaker(false, 401, 'nope');
+      }
+
+      const response = responseMaker(true, 200, 'Finalizado', updatedMatch);
+
+      return response as IResMaker;
+    } catch (error) {
+      return responseMaker(false, 500, 'Internal server error');
+    }
+  }
+
+  static async endMatch(id: number): Promise<IResMaker> {
+    try {
+      const match = await MatchRepository.endmatch(id);
+      if (!match) {
+        return responseMaker(false, 401, 'nope');
+      }
+
+      const response = responseMaker(true, 200, 'Finalizado', match);
+
+      return response as IResMaker;
+    } catch (error) {
+      return responseMaker(false, 500, 'Internal server error');
+    }
+  }
 }

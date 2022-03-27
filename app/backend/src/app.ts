@@ -16,7 +16,7 @@ class App {
     this.config();
   }
 
-  private config():void {
+  private config(): void {
     const accessControl: express.RequestHandler = (_req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT');
@@ -39,12 +39,14 @@ class App {
       .get(MatchController.getMatchesByProgress, MatchController.getAllMatches)
       .post(authenticate, MatchController.createMatch);
     //
+    this.app.route('/matchs/:id')
+      .patch(authenticate, MatchController.updateMatch);
     this.app.route('/matchs/:id/finish')
-      .patch(authenticate, MatchController.createMatch);
+      .patch(authenticate, MatchController.endMatch);
     //
   }
 
-  public start(PORT: string | number):void {
+  public start(PORT: string | number): void {
     this.app.listen(PORT, () => console.log(`>>--------------${PORT}--------------<<`));
   }
 }
