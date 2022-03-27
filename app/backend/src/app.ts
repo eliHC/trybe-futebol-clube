@@ -35,11 +35,17 @@ class App {
     this.app.route('/clubs').get(ClubController.getAllClubs);
     this.app.route('/clubs/:id').get(ClubController.getClubById);
     //
-    this.app.route('/matchs').get(MatchController.getAllMatches);
+    this.app.route('/matchs')
+      .get(MatchController.getMatchesByProgress, MatchController.getAllMatches)
+      .post(authenticate, MatchController.createMatch);
+    //
+    this.app.route('/matchs/:id/finish')
+      .patch(authenticate, MatchController.createMatch);
+    //
   }
 
   public start(PORT: string | number):void {
-    this.app.listen(PORT, () => console.log(`--------------${PORT}--------------`));
+    this.app.listen(PORT, () => console.log(`>>--------------${PORT}--------------<<`));
   }
 }
 

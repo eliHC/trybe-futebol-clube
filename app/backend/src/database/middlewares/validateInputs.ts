@@ -3,28 +3,17 @@ import * as Joi from 'joi';
 
 import responseMaker from '../utils';
 
-// const schemaUsers = Joi.object({
-//   username: Joi.string().required().min(3).messages({
-//     'any.required': 'Username is required',
-//     'string.base': 'Username must be a string',
-//     'string.min': 'Username must be longer than 2 characters',
-//   }),
-//   classe: Joi.string().required().min(3).messages({
-//     'any.required': 'Classe is required',
-//     'string.base': 'Classe must be a string',
-//     'string.min': 'Classe must be longer than 2 characters',
-//   }),
-//   level: Joi.number().required().greater(0).messages({
-//     'any.required': 'Level is required',
-//     'number.base': 'Level must be a number',
-//     'number.greater': 'Level must be greater than 0',
-//   }),
-//   password: Joi.string().required().min(8).messages({
-//     'any.required': 'Password is required',
-//     'string.base': 'Password must be a string',
-//     'string.min': 'Password must be longer than 7 characters',
-//   }),
-// }).strict();
+const schemaMatchs = Joi.object({
+  homeTeam: Joi.number().required(),
+  awayTeam: Joi.number().disallow(Joi.ref('homeTeam')).required().messages({
+    'any.invalid': 'It is not possible to create a match with two equal teams',
+  }),
+  homeTeamGoals: Joi.optional(),
+  awayTeamGoals: Joi.optional(),
+  inProgress: Joi.optional(),
+  homeGoals: Joi.optional(),
+  awayGoals: Joi.optional(),
+});
 
 const message = 'All fields must be filled';
 
@@ -42,27 +31,12 @@ const schemaLogin = Joi.object({
   }),
 });
 
-// const schemaProducts = Joi.object({
-//   name: Joi.string().required().min(2).messages({
-//     'any.required': 'Name is required',
-//     'string.base': 'Name must be a string',
-//     'string.min': 'Name must be longer than 2 characters',
-//   }),
-//   amount: Joi.string().required().min(3).messages({
-//     'any.required': 'Amount is required',
-//     'string.base': 'Amount must be a string',
-//     'string.min': 'Amount must be longer than 2 characters',
-//   }),
-// });
-
 const schemaByPath = (path: string) => {
   switch (path) {
-    // case '/users':
-    //   return schemaUsers;
+    case '/matchs':
+      return schemaMatchs;
     case '/login':
       return schemaLogin;
-    // case '/products':
-    //   return schemaProducts;
     default:
       return Joi.object().empty();
   }
@@ -79,7 +53,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
   const schema = schemaByPath(path);
   const { error } = schema.validate(payload);
 
-  console.log('<<<< validateImputs log:', error);
+  console.log(' <<<< validateImputs log: ', error);
 
   if (error) {
     const response = responseMaker(false, 401, error.message);

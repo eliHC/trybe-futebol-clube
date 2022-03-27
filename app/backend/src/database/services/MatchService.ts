@@ -1,4 +1,5 @@
 import MatchRepository from '../repositories/MatchRepository';
+import ClubRepository from '../repositories/ClubRepository';
 
 import IResMaker from '../interfaces/IResMaker';
 import responseMaker from '../utils/index';
@@ -16,15 +17,36 @@ export default class MatchService {
     return response as IResMaker;
   }
 
-  // static async getById(id: string): Promise<IResMaker> {
-  //   const match = await MatchRepository.getById(id);
+  static async getByInProgress(inProgress: boolean): Promise<IResMaker> {
+    const matchByProgress = await MatchRepository.getByProgress(inProgress);
 
-  //   if (!match) {
-  //     return responseMaker(false, 401, 'no match, dude!');
-  //   }
+    if (!matchByProgress) {
+      return responseMaker(false, 401, 'no match, dude!');
+    }
 
-  //   const response = responseMaker(true, 200, 'OK', match);
+    const response = responseMaker(true, 200, 'OK', matchByProgress);
 
-  //   return response as IResMaker;
-  // }
+    return response as IResMaker;
+  }
+
+  static async create(matchToBeSaved: any): Promise<IResMaker> { // TODO: remove any <<
+    try {
+      const homeClub = await ClubRepository.getById(matchToBeSaved.homeTeam);
+      const awayClub = await ClubRepository.getById(matchToBeSaved.awayTeam);
+
+      if (!homeClub || !awayClub) {
+        return responseMaker(false, 401, 'There is no team with such id!');
+      }
+      const match = await MatchRepository.create(matchToBeSaved);
+
+      if (!match) {
+        return responseMaker(false, 401, 'nope');
+      }
+      const response = responseMaker(true, 201, 'OK', match);
+
+      return response as IResMaker;
+    } catch (error) {
+      return responseMaker(false, 500, 'Internal server error');
+    }
+  }
 }

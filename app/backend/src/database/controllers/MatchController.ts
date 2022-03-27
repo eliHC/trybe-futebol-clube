@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 import MatchService from '../services/MatchService';
 
@@ -13,14 +13,29 @@ export default class MatchController {
     return res.status(status).json(data);
   }
 
-  // static async getMatchById(req: Request, res: Response) {
-  //   const { id } = req.params;
-  //   const { success, status, message, data } = await MatchService.getById(id);
+  static async getMatchesByProgress(req: Request, res: Response, next: NextFunction) {
+    if (req.query.inProgress) {
+      const response = await MatchService.getByInProgress(req.query.inProgress === 'true');
+      const { success, status, message, data } = response;
 
-  //   if (!success) {
-  //     return res.status(status).json({ message });
-  //   }
+      if (!success) {
+        return res.status(status).json({ message });
+      }
 
-  //   return res.status(status).json(data);
-  // }
+      return res.status(status).json(data);
+    }
+    next();
+  }
+
+  static async createMatch(req: Request, res: Response) {
+    const matchToBeSaved = req.body;
+
+    const { success, status, message, data } = await MatchService.create(matchToBeSaved);
+
+    if (!success) {
+      return res.status(status).json({ message });
+    }
+
+    return res.status(status).json(data);
+  }
 }
