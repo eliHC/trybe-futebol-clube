@@ -40,7 +40,7 @@ export default class MatchController {
   }
 
   static async updateMatch(req: Request, res: Response) {
-    const { id } = req.params;
+    const id = Number(req.params.id);
     const matchToBeUpdated = req.body;
 
     const { success, status, message, data } = await MatchService.update({ id, matchToBeUpdated });

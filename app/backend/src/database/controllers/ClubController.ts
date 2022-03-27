@@ -14,7 +14,7 @@ export default class ClubController {
   }
 
   static async getClubById(req: Request, res: Response) {
-    const { id } = req.params;
+    const id = Number(req.params.id);
     const { success, status, message, data } = await ClubService.getById(id);
 
     if (!success) {

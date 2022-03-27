@@ -16,7 +16,7 @@ export default class LoginService {
     return response as IResMaker;
   }
 
-  static async getById(id: string): Promise<IResMaker> {
+  static async getById(id: number): Promise<IResMaker> {
     const club = await ClubRepository.getById(id);
 
     if (!club) {
