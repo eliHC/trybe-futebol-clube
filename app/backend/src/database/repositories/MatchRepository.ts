@@ -31,14 +31,14 @@ export default class MatchRepository {
     return match;
   }
 
-  static async update(id: number, homeTeamGoals: string, awayTeamGoals: string) {
-    const match = await Match.update({ homeTeamGoals, awayTeamGoals }, { where: { id: id } });
+  static async update(id: number, homeTeamGoals: number, awayTeamGoals: number) {
+    const match = await Match.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
 
     return match;
   }
 
   static async endmatch(id: number) {
-    const match = await Match.update({ inProgress: false }, { where: { id: id } });
+    const match = await Match.update({ inProgress: false }, { where: { id } });
 
     return match;
   }

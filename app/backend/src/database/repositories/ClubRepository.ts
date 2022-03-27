@@ -7,7 +7,7 @@ export default class ClubRepository {
     return clubs;
   }
 
-  static async getById(id: string) {
+  static async getById(id: number) {
     const result = await Club.findByPk(id);
 
     return result;

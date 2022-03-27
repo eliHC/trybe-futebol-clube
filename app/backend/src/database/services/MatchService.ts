@@ -2,6 +2,9 @@ import MatchRepository from '../repositories/MatchRepository';
 import ClubRepository from '../repositories/ClubRepository';
 
 import IResMaker from '../interfaces/IResMaker';
+import IMatchToBeSaved from '../interfaces/IMatchToBeSaved';
+import IMatchToBeUpdated from '../interfaces/IMatchToBeUpdated';
+
 import responseMaker from '../utils/index';
 
 export default class MatchService {
@@ -29,10 +32,12 @@ export default class MatchService {
     return response as IResMaker;
   }
 
-  static async create(matchToBeSaved: any): Promise<IResMaker> { // TODO: remove any <<
+  static async create(matchToBeSaved: IMatchToBeSaved): Promise<IResMaker> {
     try {
-      const homeClub = await ClubRepository.getById(matchToBeSaved.homeTeam);
-      const awayClub = await ClubRepository.getById(matchToBeSaved.awayTeam);
+      const { homeTeam, awayTeam } = matchToBeSaved;
+
+      const homeClub = await ClubRepository.getById(homeTeam);
+      const awayClub = await ClubRepository.getById(awayTeam);
 
       if (!homeClub || !awayClub) {
         return responseMaker(false, 401, 'There is no team with such id!');
@@ -46,11 +51,11 @@ export default class MatchService {
 
       return response as IResMaker;
     } catch (error) {
-      return responseMaker(false, 500, 'Internal server error');
+      return responseMaker(false, 500, 'Internal server error ');
     }
   }
 
-  static async update({ id, matchToBeUpdated }: any): Promise<IResMaker> { // TODO: remove any <<
+  static async update({ id, matchToBeUpdated }: IMatchToBeUpdated): Promise<IResMaker> { // TODO: remove any <<
     try {
       const { homeTeamGoals, awayTeamGoals } = matchToBeUpdated;
 
@@ -78,7 +83,7 @@ export default class MatchService {
 
       return response as IResMaker;
     } catch (error) {
-      return responseMaker(false, 500, 'Internal server error');
+      return responseMaker(false, 500, '');
     }
   }
 }

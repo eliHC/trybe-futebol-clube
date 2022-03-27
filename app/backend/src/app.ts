@@ -1,12 +1,9 @@
 import * as express from 'express';
 import * as cors from 'cors';
 
-import UserController from './database/controllers/UserController';
-import ClubController from './database/controllers/ClubController';
-import MatchController from './database/controllers/MatchController';
-
 import validateInputs from './database/middlewares/validateInputs';
-import authenticate from './database/middlewares/auth';
+
+import omegaRoute from './database/routes/omegaRoutes';
 
 class App {
   public app: express.Express;
@@ -29,20 +26,7 @@ class App {
     //
     this.app.use(validateInputs);
     //
-    this.app.route('/login').post(UserController.login);
-    this.app.route('/login/validate').get(authenticate, UserController.getRole);
-    //
-    this.app.route('/clubs').get(ClubController.getAllClubs);
-    this.app.route('/clubs/:id').get(ClubController.getClubById);
-    //
-    this.app.route('/matchs')
-      .get(MatchController.getMatchesByProgress, MatchController.getAllMatches)
-      .post(authenticate, MatchController.createMatch);
-    //
-    this.app.route('/matchs/:id')
-      .patch(authenticate, MatchController.updateMatch);
-    this.app.route('/matchs/:id/finish')
-      .patch(authenticate, MatchController.endMatch);
+    this.app.use(omegaRoute);
     //
   }
 
