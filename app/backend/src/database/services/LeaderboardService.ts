@@ -8,12 +8,14 @@ export default class LeaderboardService {
 
   matches: IConcludedMatch[];
 
+  leagueLeaderboard: IResult[];
+
   constructor(matches: IConcludedMatch[]) {
     this.matches = matches;
     this.result = {};
   }
 
-  addTeam = (clubName: string) => {
+  createTeam = (clubName: string) => {
     this.result[clubName] = {
       name: clubName,
       totalPoints: 0,
@@ -32,16 +34,14 @@ export default class LeaderboardService {
     clubs.forEach((club) => { this.result[club].totalGames += 1; });
   };
 
-  setMatchResult = ({ homeTeamGoals, awayTeamGoals, homeClub, awayClub }: IConcludedMatch) => {
+  calculateMatchResult = ({ homeTeamGoals, awayTeamGoals, homeClub, awayClub }: IConcludedMatch) => {
     if (homeTeamGoals === awayTeamGoals) {
       this.result[homeClub.clubName].totalPoints += 1;
       this.result[homeClub.clubName].totalDraws += 1;
       //
       this.result[awayClub.clubName].totalPoints += 1;
       this.result[awayClub.clubName].totalDraws += 1;
-    }
-
-    if (homeTeamGoals > awayTeamGoals) {
+    } else if (homeTeamGoals > awayTeamGoals) {
       this.result[homeClub.clubName].totalPoints += 3;
       this.result[homeClub.clubName].totalVictories += 1;
       //
@@ -72,10 +72,10 @@ export default class LeaderboardService {
     const league = Object.values(this.result);
 
     league.sort((a, b) => (
-      a.totalVictories + b.totalVictories
-      || a.goalsBalance + b.goalsBalance
-      || a.goalsFavor + b.goalsFavor
-      || a.goalsOwn - b.goalsOwn
+      b.totalPoints - a.totalPoints
+      || b.goalsBalance - a.goalsBalance
+      || b.goalsFavor - a.goalsFavor
+      || a.goalsOwn + b.goalsOwn
     ));
 
     return league;
@@ -90,21 +90,21 @@ export default class LeaderboardService {
       } = match;
 
       //
-      if (!this.result[homeClub]) this.addTeam(homeClub);
-      if (!this.result[awayClub]) this.addTeam(awayClub);
+      if (!this.result[homeClub]) this.createTeam(homeClub);
+      if (!this.result[awayClub]) this.createTeam(awayClub);
       //
       this.increaseTotalGames([homeClub, awayClub]);
       //
-      this.setMatchResult(match);
+      this.calculateMatchResult(match);
       //
       this.calculateGoalsBalance(homeClub, homeTeamGoals, awayTeamGoals);
+      this.calculateGoalsBalance(awayClub, awayTeamGoals, homeTeamGoals);
       //
       this.calculateEfficiency();
       //
+      this.leagueLeaderboard = this.applyOrder()
     });
 
-    // this.result = this.applyOrder();
-
-    return responseMaker(true, 200, 'OK', Object.values(this.result));
+    return responseMaker(true, 200, 'OK', this.leagueLeaderboard);
   };
 }
