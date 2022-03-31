@@ -53,8 +53,6 @@ export default (req: Request, res: Response, next: NextFunction) => {
   const schema = schemaByPath(path);
   const { error } = schema.validate(payload);
 
-  console.log(' <<<< validateImputs log: ', error);
-
   if (error) {
     const response = responseMaker(false, 401, error.message);
 

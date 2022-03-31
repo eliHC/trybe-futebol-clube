@@ -1,6 +1,8 @@
 import Match from '../models/Match';
 import Club from '../models/Club';
 
+import IConcludedMatch from '../interfaces/IConcludedMatch';
+
 export default class MatchRepository {
   static async getAll() {
     const matches = await Match.findAll({
@@ -22,7 +24,7 @@ export default class MatchRepository {
       ],
     });
 
-    return matchesByProgress;
+    return matchesByProgress as unknown as IConcludedMatch[];
   }
 
   static async create(matchToBeSaved: object) {

@@ -3,6 +3,7 @@ import { Router } from 'express';
 import UserController from '../controllers/UserController';
 import ClubController from '../controllers/ClubController';
 import MatchController from '../controllers/MatchController';
+import LeaderboardController from '../controllers/LeaderboardController';
 
 import authenticate from '../middlewares/auth';
 
@@ -20,6 +21,8 @@ router.post('/matchs', authenticate, MatchController.createMatch);
 //
 router.patch('/matchs/:id', authenticate, MatchController.updateMatch);
 router.patch('/matchs/:id/finish', authenticate, MatchController.endMatch);
+//
+router.get('/leaderboard', LeaderboardController.getFullLeaderboard);
 //
 
 export default router;
