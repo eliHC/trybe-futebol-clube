@@ -102,7 +102,7 @@ export default class LeaderboardService {
       //
       this.calculateEfficiency();
       //
-      this.leagueLeaderboard = this.applyOrder()
+      this.leagueLeaderboard = this.applyOrder();
     });
 
     return responseMaker(true, 200, 'OK', this.leagueLeaderboard);
