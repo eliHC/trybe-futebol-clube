@@ -16,6 +16,27 @@ Construir **um back-end dockerizado utilizando modelagem de dados através do Se
  - Fazer um `CRUD` utilizando `ORM`;
 ---
 
+## 💻 Como iniciar
+
+> Antes de iniciar, é importante ressaltar que é necessário ter o Docker instalado.
+1. Faça o clone do projeto
+3. Instale as dependências
+```shell
+npm install
+```
+4. Inicie a aplicação subindo o container Docker
+```shell
+npm run compose:up
+```
+5. Agora basta ir ao seu navegador e acessar a URL
+```shell
+# Front-end:
+http://localhost:3000/
+# Back-end:
+http://localhost:3001/
+```
+
+---
 
 ## Desenvolvimento:
 ### Respostas respeitam os [status do protocolo HTTP](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status) com base no que o REST prega:
@@ -28,6 +49,7 @@ Construir **um back-end dockerizado utilizando modelagem de dados através do Se
 
   - Um acesso ao criar um recurso, no nosso caso usuário ou partida, retorna um código de `status 201`.
 
+---
 
 ### Chave JWT e criptografia de senhas:
  - Biblioteca utilizada para criptografar a senha no banco de dados: [bcryptjs npm](https://www.npmjs.com/package/bcryptjs).
